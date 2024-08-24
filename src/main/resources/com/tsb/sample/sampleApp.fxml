@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tsb.sample.Controller">
+   <children>
+      <GridPane AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="298.0" text="Обозначение электронного документа" textAlignment="CENTER" GridPane.rowIndex="2" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="308.0" text="Наименование документа" textAlignment="CENTER" GridPane.rowIndex="3" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="301.0" text="Количество А1" GridPane.rowIndex="4" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="308.0" text="Количество А4" GridPane.rowIndex="5" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="302.0" text="Количество листов в документе" GridPane.rowIndex="6" />
+            <GridPane GridPane.rowIndex="7">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.8000244140625" minWidth="10.0" prefWidth="133.6" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.60003662109375" minWidth="10.0" prefWidth="84.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.20001220703125" minWidth="10.0" prefWidth="78.4000244140625" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="144.0" text="  Хеш-сумма" />
+                  <RadioButton fx:id="buttonMd5" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#choiceCheckSum" prefHeight="18.0" prefWidth="98.0" text="MD5" GridPane.columnIndex="1">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="groupCheckSum" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton fx:id="buttonCrc32" mnemonicParsing="false" onMouseClicked="#choiceCheckSum" text="CRC32" toggleGroup="$groupCheckSum" GridPane.columnIndex="2" />
+               </children>
+            </GridPane>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="307.0" text="Наименование файла" GridPane.rowIndex="8" />
+            <GridPane GridPane.rowIndex="9">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="91.20001220703125" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.3999755859375" minWidth="10.0" prefWidth="103.99996337890624" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="103.99998779296877" minWidth="10.0" prefWidth="100.80003662109377" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label alignment="CENTER" prefHeight="18.0" prefWidth="155.0" text="Посл. изм." />
+                  <RadioButton fx:id="buttonMonthNumberModDate" mnemonicParsing="false" onMouseClicked="#getPatternDate" text="dd.MM.yyyy HH:mm:ss" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="groupModificationDate" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="buttonMonthModDate" mnemonicParsing="false" onMouseClicked="#getPatternDate" prefHeight="18.0" prefWidth="100.0" text="dd MMMM yyyy HH:mm:ss" toggleGroup="$groupModificationDate" GridPane.columnIndex="2">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </RadioButton>
+               </children>
+            </GridPane>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="299.0" text="Размер файла (байт)" GridPane.rowIndex="10" />
+            <Button fx:id="buttonCleanForm1" mnemonicParsing="false" onMouseClicked="#cleanForm1" prefHeight="26.0" prefWidth="506.0" text="Очистить форму" GridPane.rowIndex="12" />
+            <Button fx:id="buttonFileChooser" mnemonicParsing="false" onAction="#fileChooser" prefHeight="26.0" prefWidth="292.0" text="Выбрать файл" />
+            <Label fx:id="labelSingleFile" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="600.0" GridPane.columnIndex="1" />
+            <GridPane prefWidth="507.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.79996032714837" minWidth="0.0" prefWidth="61.19995117187497" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#copyEDocumentDesignation" prefHeight="26.0" prefWidth="61.0" text="Copy" GridPane.columnIndex="1" />
+                  <TextField fx:id="eDocumentDesignation" alignment="CENTER" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.199951171875" minWidth="10.0" prefWidth="62.39995117187499" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#copyDocumentName" prefHeight="26.0" prefWidth="62.0" text="Copy" GridPane.columnIndex="1" />
+                  <TextField fx:id="documentName" accessibleRole="TEXT_AREA" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.199951171875" minWidth="10.0" prefWidth="62.4000244140625" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#copyNumberPagesAOne" prefHeight="26.0" prefWidth="62.0" text="Copy" GridPane.columnIndex="1" />
+                  <TextField fx:id="pagesAOne" alignment="CENTER" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.199951171875" minWidth="10.0" prefWidth="62.4000244140625" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#copyNumberPagesAFour" prefHeight="26.0" prefWidth="62.0" text="Copy" GridPane.columnIndex="1" />
+                  <TextField fx:id="pagesAFour" alignment="CENTER" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.199951171875" minWidth="10.0" prefWidth="62.4000244140625" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#copyNumberPages" prefHeight="26.0" prefWidth="62.0" text="Copy" GridPane.columnIndex="1" />
+                  <TextField fx:id="numberPages" alignment="CENTER" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.199951171875" minWidth="10.0" prefWidth="62.4000244140625" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#copyCheckSum" prefHeight="26.0" prefWidth="62.0" text="Copy" GridPane.columnIndex="1" />
+                  <TextField fx:id="checkSum" alignment="CENTER" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="8">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.199951171875" minWidth="10.0" prefWidth="62.4000244140625" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#copyFileName" prefHeight="26.0" prefWidth="62.0" text="Copy" GridPane.columnIndex="1" />
+                  <TextField fx:id="fileName" alignment="CENTER" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="9">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.199951171875" minWidth="10.0" prefWidth="62.4000244140625" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#copyModificationDate" prefHeight="26.0" prefWidth="62.0" text="Copy" GridPane.columnIndex="1" />
+                  <TextField fx:id="modificationDate" alignment="CENTER" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="10">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.199951171875" minWidth="10.0" prefWidth="62.4000244140625" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#copyFileSize" prefHeight="26.0" prefWidth="62.0" text="Copy" GridPane.columnIndex="1" />
+                  <TextField fx:id="fileSize" alignment="CENTER" />
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+      <GridPane AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="435.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="300.0" text="Разраб." />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="310.0" text="Проверил" GridPane.rowIndex="1" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="297.0" text="Нач. отд." GridPane.rowIndex="2" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="302.0" text="Н. контр." GridPane.rowIndex="3" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="300.0" text="ГИП" GridPane.rowIndex="4" />
+            <Label text="Первый заместитель генерального директора – главный инженер" GridPane.rowIndex="5" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="295.0" text="Дата подписания" GridPane.rowIndex="6" />
+            <Button mnemonicParsing="false" onMouseClicked="#saveIdentitySheet" prefHeight="26.0" prefWidth="302.0" text="Выгрузить ИУЛ" GridPane.rowIndex="8" />
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="303.0" text="Очистить форму" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="295.0" text="Очистить все" GridPane.rowIndex="9" />
+            <TextField fx:id="drawn" GridPane.columnIndex="1" />
+            <TextField fx:id="chkdBy" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="departmentChief" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="regDocCrl" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="generalEngineer" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="director" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="dateSign" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
