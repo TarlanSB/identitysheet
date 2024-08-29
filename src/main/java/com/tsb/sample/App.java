@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 
 public class App extends Application {
@@ -14,7 +13,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("sampleApp.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("ИУЛ");
         stage.setScene(scene);
         stage.show();
 //        Parent root = FXMLLoader.load(getClass().getResource("sampleApp.fxml"));

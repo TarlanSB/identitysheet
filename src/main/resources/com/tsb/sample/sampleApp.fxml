@@ -30,6 +30,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
@@ -85,8 +86,8 @@
                </children>
             </GridPane>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="299.0" text="Размер файла (байт)" GridPane.rowIndex="10" />
-            <Button fx:id="buttonCleanForm1" mnemonicParsing="false" onMouseClicked="#cleanForm1" prefHeight="26.0" prefWidth="506.0" text="Очистить форму" GridPane.rowIndex="12" />
-            <Button fx:id="buttonFileChooser" mnemonicParsing="false" onAction="#fileChooser" prefHeight="26.0" prefWidth="292.0" text="Выбрать файл" />
+            <Button mnemonicParsing="false" onMouseClicked="#cleanForm1" prefHeight="26.0" prefWidth="506.0" text="Очистить форму" GridPane.rowIndex="13" />
+            <Button mnemonicParsing="false" onAction="#fileChooser" prefHeight="26.0" prefWidth="292.0" text="Выбрать файл" />
             <Label fx:id="labelSingleFile" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="600.0" GridPane.columnIndex="1" />
             <GridPane prefWidth="507.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
               <columnConstraints>
@@ -205,9 +206,23 @@
                   <TextField fx:id="fileSize" alignment="CENTER" />
                </children>
             </GridPane>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="299.0" text="Шифр" GridPane.rowIndex="11" />
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="11">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.199951171875" minWidth="10.0" prefWidth="62.4000244140625" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#copyProjectCode" prefHeight="26.0" prefWidth="62.0" text="Copy" GridPane.columnIndex="1" />
+                  <TextField fx:id="projectCode" alignment="CENTER" />
+               </children>
+            </GridPane>
          </children>
       </GridPane>
-      <GridPane AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="435.0">
+      <GridPane AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="445.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -233,8 +248,8 @@
             <Label text="Первый заместитель генерального директора – главный инженер" GridPane.rowIndex="5" />
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="295.0" text="Дата подписания" GridPane.rowIndex="6" />
             <Button mnemonicParsing="false" onMouseClicked="#saveIdentitySheet" prefHeight="26.0" prefWidth="302.0" text="Выгрузить ИУЛ" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="303.0" text="Очистить форму" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="295.0" text="Очистить все" GridPane.rowIndex="9" />
+            <Button fx:id="buttonCleanForm2" mnemonicParsing="false" onMouseClicked="#cleanForm2" prefHeight="26.0" prefWidth="303.0" text="Очистить форму" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Button fx:id="buttonCleanAll" mnemonicParsing="false" onMouseClicked="#cleanAll" prefHeight="26.0" prefWidth="295.0" text="Очистить все" GridPane.rowIndex="9" />
             <TextField fx:id="drawn" GridPane.columnIndex="1" />
             <TextField fx:id="chkdBy" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="departmentChief" GridPane.columnIndex="1" GridPane.rowIndex="2" />

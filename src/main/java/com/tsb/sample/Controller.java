@@ -1,17 +1,12 @@
 package com.tsb.sample;
 
-import com.spire.doc.Document;
-import com.spire.doc.FileFormat;
-import com.spire.doc.Section;
-import com.spire.doc.Table;
+import com.spire.doc.*;
 import com.tsb.service.DocumentService;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -27,7 +22,6 @@ public class Controller implements Initializable {
     @FXML
     private Label labelSingleFile;
 
-    // getPDFModificationDate
     @FXML
     private RadioButton buttonCrc32;
 
@@ -40,33 +34,27 @@ public class Controller implements Initializable {
     @FXML
     private TextField checkSum;
 
-    // getDocumentName
     @FXML
     private TextField documentName;
 
-    // getEDocumentDesignation
     @FXML
     private TextField eDocumentDesignation;
 
-    // getFileName
     @FXML
     private TextField fileName;
 
-    //
     @FXML
     private TextField fileSize;
 
     @FXML
     private TextField numberPages;
 
-    //
     @FXML
     private TextField pagesAFour;
 
     @FXML
     private TextField pagesAOne;
 
-    // getPDFModificationDate
     @FXML
     private TextField modificationDate;
 
@@ -99,6 +87,9 @@ public class Controller implements Initializable {
 
     @FXML
     private TextField regDocCrl;
+
+    @FXML
+    private TextField projectCode;
 
     @FXML
     void copyDocumentName() { // MouseEvent event
@@ -146,21 +137,23 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    private Button buttonCleanForm1;
+    void copyProjectCode() {
+        doCopy(projectCode.getText());
+    }
 
 
-    static String filePath = "";
+    static String filePath = null;
     DocumentService documentService = new DocumentService();
 
     FileChooser fileChooser = new FileChooser();
 
     @FXML
-    String fileChooser(ActionEvent event) {
-
+    String fileChooser() {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("File extension", fileExtensionList));
         File file = fileChooser.showOpenDialog(null);
 
         if (file != null) {
+            cleanForm1();
             filePath = file.getAbsolutePath();
             labelSingleFile.setText("Путь: " + filePath);
             eDocumentDesignation.setText(documentService.getEDocumentDesignation(filePath));
@@ -169,8 +162,9 @@ public class Controller implements Initializable {
             pagesAFour.setText(String.valueOf(documentService.countPagesAFour(filePath)));
             pagesAOne.setText(String.valueOf(documentService.countPagesAOne(filePath)));
             fileName.setText(documentService.getFileName(filePath));
-            //getCheckSum(documentService, filePath);
-            fileSize.setText(String.valueOf(documentService.getPdfFileSize(filePath)));
+            fileSize.setText(documentService.getPdfFileSize(filePath));
+            projectCode.setText(documentService.getProjectCode(filePath));
+            fileChooser.setInitialDirectory(new File(file.getParent()));
         }
         return Objects.requireNonNull(file).getAbsolutePath();
     }
@@ -209,14 +203,14 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    public void choiceCheckSum(MouseEvent mouseEvent) {
+    public void choiceCheckSum() {
         getCheckSum(documentService);
     }
 
     static String pattern = "";
 
     @FXML
-    void getPatternDate(MouseEvent event) {
+    void getPatternDate() {
         String patternMonthModDate = "dd MMMM yyyy HH:mm:ss";
         String patternModDate = "dd.MM.yyyy HH:mm:ss";
         String date = "";
@@ -231,51 +225,64 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    void saveIdentitySheet(MouseEvent event) {
+    void saveIdentitySheet() {
         Document document = new Document("src/main/resources/com/tsb/template-IS.docx");
-        //Get the first section
-        Section section = document.getSections().get(0);
-        //Get the first table in the section
-        Table table = section.getTables().get(0);
-        //Create a map of values
-        Map<String, String> map = new HashMap<>();
-        map.put("$electronicDocumentDesignation", eDocumentDesignation.getText());
-        map.put("$documentName", documentName.getText());
-        map.put("$countPagesAOne", pagesAOne.getText());
-        map.put("$md5Crc32", checkSumName);
-        map.put("$checkSum", checkSum.getText());
-        map.put("$getFileName", fileName.getText());
-        map.put("$getPDFModificationDate", modificationDate.getText());
-        map.put("$pdfFileSize", fileSize.getText());
-        map.put("$drawn", drawn.getText());
-        map.put("$chkdBy", chkdBy.getText());
-        map.put("$departmentChief", departmentChief.getText());
-        map.put("$regDocCrl", regDocCrl.getText());
-        map.put("$generalEngineer", generalEngineer.getText());
-        map.put("$director", director.getText());
-        map.put("$dateSign", dateSign.getText());
-        //Replace text in the table
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            table.replace(entry.getKey(), entry.getValue(), false, true);
-        }
+
+        document.replace("$electronicDocumentDesignation", eDocumentDesignation.getText(), false, true);
+        document.replace("$documentName", documentName.getText(), false, true);
+        document.replace("$countPagesAOne", pagesAOne.getText(), false, true);
+        document.replace("$md5Crc32", checkSumName, false, true);
+        document.replace("$checkSum", checkSum.getText(), false, true);
+        document.replace("$getFileName", fileName.getText(), false, true);
+        document.replace("$getPDFModificationDate", modificationDate.getText(), false, true);
+        document.replace("$pdfFileSize", fileSize.getText(), false, true);
+        document.replace("$drawn", drawn.getText(), false, true);
+        document.replace("$chkdBy", chkdBy.getText(), false, true);
+        document.replace("$departmentChief", departmentChief.getText(), false, true);
+        document.replace("$regDocCrl", regDocCrl.getText(), false, true);
+        document.replace("$generalEngineer", generalEngineer.getText(), false, true);
+        document.replace("$director", director.getText(), false, true);
+        document.replace("$dateSign", dateSign.getText(), false, true);
+        document.replace("$projectCode", projectCode.getText() + "-УЛ", false, true);
+
         String identityDocName = DocumentService.removeFileExtension(filePath, true) + "-ИУЛ.docx";
         //Save the result document
         document.saveToFile(identityDocName, FileFormat.Docx_2013);
     }
 
+    String clearText = "";
+
     @FXML
-    void cleanForm1(MouseEvent event) {
-      //  filePath = file.getAbsolutePath();
-        String clearText = "";
-        labelSingleFile.setText("");
-        eDocumentDesignation.setText(clearText);
-        documentName.setText(clearText);
-        numberPages.setText(clearText);
-        pagesAFour.setText(clearText);
-        pagesAOne.setText(clearText);
-        fileName.setText(clearText);
-        checkSum.setText(clearText);
-        modificationDate.setText(clearText);
-        fileSize.setText(clearText);
+    void cleanForm1() {
+        if (!labelSingleFile.getText().equals("")) {
+            labelSingleFile.setText("");
+            eDocumentDesignation.setText(clearText);
+            documentName.setText(clearText);
+            numberPages.setText(clearText);
+            pagesAFour.setText(clearText);
+            pagesAOne.setText(clearText);
+            fileName.setText(clearText);
+            checkSum.setText(clearText);
+            modificationDate.setText(clearText);
+            fileSize.setText(clearText);
+            projectCode.setText(clearText);
+        }
+    }
+
+    @FXML
+    void cleanForm2() {
+        drawn.setText(clearText);
+        chkdBy.setText(clearText);
+        departmentChief.setText(clearText);
+        regDocCrl.setText(clearText);
+        generalEngineer.setText(clearText);
+        director.setText(clearText);
+        dateSign.setText(clearText);
+    }
+
+    @FXML
+    void cleanAll() {
+        cleanForm2();
+        cleanForm1();
     }
 }

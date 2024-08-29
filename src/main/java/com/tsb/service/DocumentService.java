@@ -10,12 +10,10 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -43,36 +41,29 @@ public class DocumentService extends PDFStreamEngine {
     }
 
     public String getDocumentName(String fileName) {
-        String text = extractText(fileName).replaceAll("\r", "")
-                .replaceAll("\n", " ")
-                .replaceAll("\\s{2,}", " ");
-        Pattern pattern = Pattern.compile("\\d+");
+        String text = reduceText(fileName);
+        String element = getProjectCode(fileName);
+        int endIndex = text.indexOf(element);
+        return text.substring(0, endIndex);
+    }
+
+    public String getProjectCode(String fileName) {
+        String text = reduceText(fileName);
+        Pattern pattern = Pattern.compile("\\d{3,}");
         Matcher matcher = pattern.matcher(text);
-        int end = 0;
-        while (matcher.find()) {
-            if (Integer.parseInt(matcher.group()) / 100 >= 1) {
-                end = text.indexOf(matcher.group());
-            }
+        int fromIndex = 0;
+        if (matcher.find()) {
+            fromIndex = matcher.start();
+        } else {
+            System.out.println("No match found.");
         }
-        int start = text.indexOf("Раздел");
-        int end2 = text.indexOf("Том");
-        return end >= 1 ? text.substring(start, end) : text.substring(start, end2);
+        return text.substring(fromIndex).trim();
     }
 
     public String getPDFModificationDate(String fileName, String pattern) {
         Date date = doPdfModificationDate(fileName);
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         return formatter.format(date);
-    }
-
-    private Date doPdfModificationDate(String fileName) {
-        try (PDDocument document = loadPDFFile(fileName)) {
-            PDDocumentInformation info = document.getDocumentInformation();
-            document.close();
-            return info.getModificationDate().getTime();
-        } catch (IOException e) {
-            throw new RuntimeException("pDFModificationDate " + e);
-        }
     }
 
     // get sumSizePages in mm
@@ -108,17 +99,11 @@ public class DocumentService extends PDFStreamEngine {
     public int getNumberPages(String fileName) {
         int numberPages;
         try (PDDocument document = loadPDFFile(fileName)) {
-             numberPages = document.getNumberOfPages();
+            numberPages = document.getNumberOfPages();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return numberPages;
-    }
-
-    public String genWithMessageDigest(String filePath) throws IOException, NoSuchAlgorithmException {
-        byte[] data = Files.readAllBytes(Paths.get(filePath));
-        byte[] hash = MessageDigest.getInstance("MD5").digest(data);
-        return new BigInteger(1, hash).toString(16);
     }
 
     public String checksumForDigest(String filename) throws IOException, NoSuchAlgorithmException {
@@ -150,15 +135,14 @@ public class DocumentService extends PDFStreamEngine {
         }
     }
 
-    public long getPdfFileSize(String fileName) {
+    public String getPdfFileSize(String fileName) {
         File file = new File(fileName);// fileName
-        return file.length();
+        return new DecimalFormat("###,###").format(file.length());
     }
 
-    private String extractText(String fileName) {
+    public String extractText(String fileName) {
         String text = null;
-        try {
-            PDDocument doc = PDDocument.load(new File(fileName));
+        try (PDDocument doc = PDDocument.load(new File(fileName))) {
             PDDocument document = new PDDocument();
             document.addPage(doc.getDocumentCatalog().getPages().get(0));
             document.close();
@@ -174,8 +158,30 @@ public class DocumentService extends PDFStreamEngine {
         if (filename == null || filename.isEmpty()) {
             return filename;
         }
-
         String extPattern = "(?<!^)[.]" + (removeAllExtensions ? ".*" : "[^.]*$");
         return filename.replaceAll(extPattern, "");
+    }
+
+    private String reduceText(String fileName) {
+        String text = extractTextToLine(fileName);
+        int startIndex = text.indexOf("Раздел");
+        int toIndex = text.indexOf("Том");
+        return text.substring(startIndex, toIndex);
+    }
+
+    private String extractTextToLine(String fileName) {
+        return extractText(fileName).replaceAll("\r", "")
+                .replaceAll("\n", " ")
+                .replaceAll("\\s{2,}", " ");
+    }
+
+    private Date doPdfModificationDate(String fileName) {
+        try (PDDocument document = loadPDFFile(fileName)) {
+            PDDocumentInformation info = document.getDocumentInformation();
+            document.close();
+            return info.getModificationDate().getTime();
+        } catch (IOException e) {
+            throw new RuntimeException("pDFModificationDate " + e);
+        }
     }
 }
