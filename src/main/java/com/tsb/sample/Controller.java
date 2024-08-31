@@ -1,19 +1,25 @@
 package com.tsb.sample;
 
-import com.spire.doc.*;
+import com.spire.doc.Document;
+import com.spire.doc.FileFormat;
 import com.tsb.service.DocumentService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.FileChooser;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
@@ -145,6 +151,8 @@ public class Controller implements Initializable {
     static String filePath = null;
     DocumentService documentService = new DocumentService();
 
+//    MSDocumentService msDocumentService = new MSDocumentService();
+
     FileChooser fileChooser = new FileChooser();
 
     @FXML
@@ -226,6 +234,7 @@ public class Controller implements Initializable {
 
     @FXML
     void saveIdentitySheet() {
+
         Document document = new Document("src/main/resources/com/tsb/template-IS.docx");
 
         document.replace("$electronicDocumentDesignation", eDocumentDesignation.getText(), false, true);
@@ -246,8 +255,11 @@ public class Controller implements Initializable {
         document.replace("$projectCode", projectCode.getText() + "-УЛ", false, true);
 
         String identityDocName = DocumentService.removeFileExtension(filePath, true) + "-ИУЛ.docx";
+
         //Save the result document
         document.saveToFile(identityDocName, FileFormat.Docx_2013);
+
+        //msDocumentService.replaceText("C:\\Users\\WINDOW\\OneDrive\\Desktop\\Разработка ИУЛ\\Новая папка\\input.doc");
     }
 
     String clearText = "";

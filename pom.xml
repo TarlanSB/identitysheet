@@ -5,25 +5,25 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.tsb</groupId>
-    <artifactId>identitysheet</artifactId>
+    <artifactId>sample</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>identitysheet</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.8.2</junit.version>
+        <junit.version>5.10.2</junit.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>19-ea+3</version>
+            <version>22.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>19-ea+3</version>
+            <version>22.0.1</version>
         </dependency>
 
         <dependency>
@@ -44,7 +44,6 @@
             <artifactId>pdfbox</artifactId>
             <version>2.0.32</version>
         </dependency>
-
         <dependency>
             <groupId>e-iceblue</groupId>
             <artifactId>spire.doc.free</artifactId>
@@ -65,10 +64,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
+                <version>3.13.0</version>
                 <configuration>
-                    <source>19</source>
-                    <target>19</target>
+                    <source>22</source>
+                    <target>22</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -80,56 +79,13 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.tsb.identitysheet/com.tsb.sample.App</mainClass>
+                            <mainClass>com.tsb.sample/com.tsb.sample.App</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.6.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-<!--                                                        <filters>-->
-<!--                                                            <filter>-->
-<!--                                                                <includes>-->
-<!--                                                                    <include>spire.doc-12.7.17.jar</include>-->
-<!--&lt;!&ndash;                                                                    <include>pdfbox-2.0.4.jar</include>&ndash;&gt;-->
-<!--                                                                    <include>javafx-base-19-ea+3-win.jar</include>-->
-<!--                                                                    <include>javafx-controls-19-ea+3-win.jar</include>-->
-<!--                                                                    <include>javafx-fxml-19-ea+3-win.jar</include>-->
-<!--                                                                </includes>-->
-<!--                                                            </filter>-->
-<!--                                                            <filter>-->
-<!--                                                                <artifact>*:*</artifact>-->
-<!--                                                                <excludes>-->
-<!--                                                                    <exclude>META-INF/*.MF</exclude>-->
-<!--                                                                    <exclude>META-INF/DEPENDENCIES</exclude>-->
-<!--                                                                    <exclude>META-INF/LICENSE</exclude>-->
-<!--                                                                    <exclude>META-INF/NOTICE</exclude>-->
-<!--                                                                </excludes>-->
-<!--                                                            </filter>-->
-<!--                                                        </filters>-->
-                            <minimizeJar>true</minimizeJar>
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <transformers>
-                                <transformer implementation=
-                                                     "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.tsb.sample.Main</mainClass>
-                                </transformer>
-                            </transformers>
                         </configuration>
                     </execution>
                 </executions>
