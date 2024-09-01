@@ -13,7 +13,10 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.FileChooser;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -147,11 +150,8 @@ public class Controller implements Initializable {
         doCopy(projectCode.getText());
     }
 
-
-    static String filePath = null;
+    static String filePath = "1";
     DocumentService documentService = new DocumentService();
-
-//    MSDocumentService msDocumentService = new MSDocumentService();
 
     FileChooser fileChooser = new FileChooser();
 
@@ -233,9 +233,13 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    void saveIdentitySheet() {
+    void saveIdentitySheet() throws URISyntaxException, IOException {
+        InputStream template = getClass().getClassLoader().getResourceAsStream("template-IS.docx");
 
-        Document document = new Document("src/main/resources/com/tsb/template-IS.docx");
+
+
+        Document document = new Document();
+        document.loadFromStream(template, FileFormat.Docx_2013);
 
         document.replace("$electronicDocumentDesignation", eDocumentDesignation.getText(), false, true);
         document.replace("$documentName", documentName.getText(), false, true);
@@ -258,15 +262,13 @@ public class Controller implements Initializable {
 
         //Save the result document
         document.saveToFile(identityDocName, FileFormat.Docx_2013);
-
-        //msDocumentService.replaceText("C:\\Users\\WINDOW\\OneDrive\\Desktop\\Разработка ИУЛ\\Новая папка\\input.doc");
     }
 
     String clearText = "";
 
     @FXML
     void cleanForm1() {
-        if (!labelSingleFile.getText().equals("")) {
+        if (!labelSingleFile.getText().isEmpty()) {
             labelSingleFile.setText("");
             eDocumentDesignation.setText(clearText);
             documentName.setText(clearText);
